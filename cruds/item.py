@@ -14,3 +14,8 @@ class Item:
         description: Optional[str], 
         status: ItemStatus
     ):
+        self.id = id
+        self.name = name
+        self.price = price
+        self.description = description
+        self.status = status
