@@ -19,3 +19,9 @@ class Item:
         self.price = price
         self.description = description
         self.status = status
+
+items = [
+    Item(1, "PC", 100, "備品です", ItemStatus.ON_SALE),
+    Item(2, "スマートフォン", 200, None, ItemStatus.ON_SALE),
+    Item(3, "本", 300, "使用感あり", ItemStatus.SOLD_OUT),
+]
