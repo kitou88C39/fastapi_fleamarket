@@ -1,5 +1,5 @@
-from fastapi import FastAPI,Body
-from cruds import item as item_cruds
+from fastapi import FastAPI
+from cruds import item
 from routers import item
 
 app = FastAPI()
