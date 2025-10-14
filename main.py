@@ -6,3 +6,7 @@ app = FastAPI()
 @app.get("/items")
 async def find_all():
     return item_cruds.find_all()
+
+@app.get("/items/{id}")
+async def find_by_id(id: int):
+    return item_cruds.find_by_id(id)
