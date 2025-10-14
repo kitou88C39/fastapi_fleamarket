@@ -53,3 +53,13 @@ def create_item(item: Item):
     )    
     items.append(new_item)
     return new_item
+
+def update(id: int, item_update):
+    for item in items:
+        if item.id == id:
+            item.name = item_update.get("name", item.name)
+            item.price = item_update.get("price", item.price)
+            item.description = item_update.get("description", item.description)
+            item.status = item_update.get("status", item.status)    
+            return item
+    return None
