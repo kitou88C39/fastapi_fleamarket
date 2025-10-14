@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI,Body
 from cruds import item as item_cruds
 
 app = FastAPI()
@@ -14,3 +14,7 @@ async def find_by_id(id: int):
 @app.get("/items/")
 async def find_by_name(name: str):
     return item_cruds.find_by_name(name)
+
+@app.post("/items")
+async def create(item_create=Body()):
+    return item_cruds.create_item(item_create)
