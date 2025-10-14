@@ -45,6 +45,11 @@ def find_by_name(name: str):
 
 def create_item(item: Item):
     new_item = Item(
-        len(items) + 1
+        len(items) + 1,
+        item_create.get("name"),
+        item_create.get("price"),
+        item_create.get("description"),
+        ItemStatus.ON_SALE,
     )    
-
+    items.append(new_item)
+    return new_item
