@@ -63,3 +63,11 @@ def update(id: int, item_update):
             item.status = item_update.get("status", item.status)    
             return item
     return None
+
+
+def delete(id: int):
+    for i in range(len(items)):
+        if items[i].id == id:
+            deleted_item = items.pop(i)
+            return deleted_item
+    return None
