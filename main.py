@@ -22,3 +22,7 @@ async def create(item_create=Body()):
 @app.put("/items/{id}")
 async def update(id: int, item_update=Body()):
     return item_cruds.update(id, item_update)
+
+@app.delete("/items/{id}")
+async def delete(id: int):
+    return item_cruds.delete(id)
