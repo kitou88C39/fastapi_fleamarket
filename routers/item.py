@@ -1,11 +1,7 @@
 from fastapi import APIRouter, Body
 from cruds import item as item_cruds
 
-router = APIRouter(prefix="/items")
-
-@router.get("")
-async def find_all():
-    return item_cruds.find_all()
+router = APIRouter(prefix="/items", tags=["Items"])
 
 @router.get("")
 async def find_all():
