@@ -1,5 +1,5 @@
 from typing import Optional
-from schemas import ItemCreate
+from schemas import ItemCreate, ItemStatus
 
 class Item:
     def __init__(
