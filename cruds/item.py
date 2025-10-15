@@ -1,5 +1,5 @@
 from typing import Optional
-from schemas import ItemCreate, ItemStatus
+from schemas import ItemCreate, ItemStatus, ItemUpdate
 
 class Item:
     def __init__(
@@ -50,13 +50,13 @@ def create(item_create: ItemCreate):
     items.append(new_item)
     return new_item
 
-def update(id: int, item_update):
+def update(id: int, item_update: ItemUpdate):
     for item in items:
         if item.id == id:
-            item.name = item_update.get("name", item.name)
-            item.price = item_update.get("price", item.price)
-            item.description = item_update.get("description", item.description)
-            item.status = item_update.get("status", item.status)    
+            item.name = item_update if item_update.name is None else item_update.name
+            item.price = item_update if item_update.price is None else item_update.price
+            item.description = item_update if item_update.description is None else item_update.description
+            item.status = item_update if item_update.status is None else item_update.status  
             return item
     return None
 
