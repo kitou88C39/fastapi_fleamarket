@@ -1,10 +1,6 @@
-from enum import Enum
 from typing import Optional
 from schemas import ItemCreate
 
-# class ItemStatus(Enum):
-#     ON_SALE = "on_sale"
-#     SOLD_OUT = "sold_out"
 class Item:
     def __init__(
         self, 
