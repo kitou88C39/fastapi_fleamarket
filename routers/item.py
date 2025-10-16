@@ -1,5 +1,5 @@
 from typing import Optional
-from fastapi import APIRouter, Path, Query
+from fastapi import APIRouter, Path, Query, HTTPException
 from cruds import item as item_cruds
 from schemas import ItemCreate, ItemUpdate, ItemResponse
 
@@ -9,9 +9,12 @@ router = APIRouter(prefix="/items", tags=["Items"])
 async def find_all():
     return item_cruds.find_all()
 
-@router.get("/{id}", response_model=Optional[ItemResponse])
+@router.get("/{id}", response_model=ItemResponse)
 async def find_by_id(id: int=Path(gt=0)):
-    return item_cruds.find_by_id(id)
+    found_item = item_cruds.find_by_id(id)
+    if not found_item:
+        raise HTTPException(status_code=404, detail="Item not found")
+    return found_item
 
 @router.get("/", response_model=list[ItemResponse])
 async def find_by_name(name: str = Query(min_length=2, max_length=20)):
