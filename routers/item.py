@@ -26,6 +26,9 @@ async def create(item_create: ItemCreate):
 
 @router.put("/{id}", response_model=Optional[ItemResponse])
 async def update(item_update: ItemUpdate, id: int = Path(gt=0)):
+    update_item = item_cruds.update(id, item_update)
+    if not update_item:
+        raise HTTPException(status_code=404, detail="Item not found")
     return item_cruds.update(id, item_update)
 
 @router.delete("/{id}", response_model=Optional[ItemResponse])
