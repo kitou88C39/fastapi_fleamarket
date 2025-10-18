@@ -42,9 +42,13 @@ def update(db: Session, id: int, item_update: ItemUpdate):
     return item
 
 
-# def delete(id: int):
-#     for i in range(len(items)):
-#         if items[i].id == id:
-#             deleted_item = items.pop(i)
-#             return deleted_item
-#     return None
+def delete(db: Session, id: int):
+    item = find_by_id(db, id)
+    if item is None:
+        return None
+    db.delete(item)
+    db.commit()
+    return item
+    
+
+    
