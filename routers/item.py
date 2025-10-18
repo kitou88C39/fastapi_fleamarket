@@ -37,9 +37,9 @@ async def update(db: DbDependency, item_update: ItemUpdate, id: int = Path(gt=0)
         raise HTTPException(status_code=404, detail="Item not updated")
     return update_item
 
-# @router.delete("/{id}", response_model=ItemResponse, status_code=status.HTTP_200_OK)
-# async def delete(id: int = Path(gt=0)):
-#     delete_item = item_cruds.delete(id)
-#     if not delete_item:
-#         raise HTTPException(status_code=404, detail="Item not deleted")
-#     return delete_item
+@router.delete("/{id}", response_model=ItemResponse, status_code=status.HTTP_200_OK)
+async def delete(db: DbDependency, id: int = Path(gt=0)):
+    delete_item = item_cruds.delete(db, id)
+    if not delete_item:
+        raise HTTPException(status_code=404, detail="Item not deleted")
+    return delete_item
