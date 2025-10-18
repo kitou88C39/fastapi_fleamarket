@@ -3,13 +3,12 @@ from logging.config import fileConfig
 
 from sqlalchemy import engine_from_config
 from sqlalchemy import pool
-from sqlalchemy.ext.asyncio import create_async_engine
 
 from alembic import context
 
 # 1. 独自のメタデータオブジェクトをインポートします
 #    プロジェクトの基盤となるモデルが定義されている場所です
-from app.models import Base  # 例: 'app.models'からBaseをインポート
+from models import Base  # 例: 'app.models'からBaseをインポート
 
 # alembic.iniから設定をロードします
 config = context.config
@@ -24,8 +23,6 @@ target_metadata = Base.metadata
 
 # 設定ファイルからデータベースURLを取得します
 # 'sqlalchemy.url' キーは alembic.ini ファイルで設定されている必要があります
-DB_URL = config.get_main_option("sqlalchemy.url")
-
 
 def run_migrations_offline() -> None:
     """オフラインモードでマイグレーションを実行します。
@@ -72,10 +69,3 @@ async def run_migrations_online() -> None:
         await connection.run_sync(do_run_migrations)
 
     await connectable.dispose()
-
-
-if context.is_offline_mode():
-    run_migrations_offline()
-else:
-    # オンラインモードの場合、非同期関数をイベントループで実行します
-    async
