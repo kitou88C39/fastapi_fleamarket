@@ -22,9 +22,9 @@ async def find_by_id(db: DbDependency, id: int=Path(gt=0)):
         raise HTTPException(status_code=404, detail="Item not found")
     return found_item
 
-# @router.get("/", response_model=list[ItemResponse], status_code=status.HTTP_200_OK)
-# async def find_by_name(name: str = Query(min_length=2, max_length=20)):
-#     return item_cruds.find_by_name(name)
+@router.get("/", response_model=list[ItemResponse], status_code=status.HTTP_200_OK)
+async def find_by_name(db: DbDependency, ame: str = Query(min_length=2, max_length=20)):
+    return item_cruds.find_by_name(db, name)
 
 @router.post("", response_model=ItemResponse, status_code=status.HTTP_201_CREATED)
 async def create(db: DbDependency, item_create: ItemCreate):
