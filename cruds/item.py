@@ -6,17 +6,14 @@ from models import Item
 def find_all(db: Session):
     return db.query(Item).all()
 
+
 def find_by_id(db: Session, id: int):
     return db.query(Item).filter(Item.id == id).first()
     
 
-# def find_by_name(name: str):
-#     filtered_items = []
-
-#     for item in items:
-#         if name in item.name:
-#             filtered_items.append(item)
-#     return filtered_items
+def find_by_name(db: Session, name: str):
+    return db.query(Item).filter(Item.name.like(f"%{name}%")).all()
+    
 
 def create(db: Session, item_create: ItemCreate):
     new_item = Item(
