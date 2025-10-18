@@ -6,11 +6,9 @@ from models import Item
 def find_all(db: Session):
     return db.query(Item).all()
 
-# def find_by_id(id: int):
-#     for item in items:
-#         if item.id == id:
-#             return item
-#     return None
+def find_by_id(db: Session, id: int):
+    return db.query(Item).filter(Item.id == id).first()
+    
 
 # def find_by_name(name: str):
 #     filtered_items = []
