@@ -27,14 +27,19 @@ def update(db: Session, id: int, item_update: ItemUpdate):
     item = find_by_id(db, id)
     if item is None:
         return None
-    for item in items:
-        if item.id == id:
-            item.name = item_update if item_update.name is None else item_update.name
-            item.price = item_update if item_update.price is None else item_update.price
-            item.description = item_update if item_update.description is None else item_update.description
-            item.status = item_update if item_update.status is None else item_update.status  
-            return item
-    return None
+
+    item.name = item_update if item_update.name is None else item_update.name
+    item.price = item_update if item_update.price is None else item_update.price
+    item.description = (
+        item.description if item_update.description is None else item_update.description
+    )
+    item.status = (
+        item.status if item_update.status is None else item_update.status
+    )
+    db.add(item)
+    db.commit()
+
+    return item
 
 
 # def delete(id: int):
