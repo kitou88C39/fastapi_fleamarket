@@ -27,8 +27,8 @@ router = APIRouter(prefix="/items", tags=["Items"])
 #     return item_cruds.find_by_name(name)
 
 @router.post("", response_model=ItemResponse, status_code=status.HTTP_201_CREATED)
-async def create(item_create: ItemCreate):
-    return item_cruds.create_item(item_create)
+async def create(db: DbDependency, item_create: ItemCreate):
+    return item_cruds.create_item(db, item_create)
 
 # @router.put("/{id}", response_model=ItemResponse, status_code=status.HTTP_200_OK)
 # async def update(item_update: ItemUpdate, id: int = Path(gt=0)):
