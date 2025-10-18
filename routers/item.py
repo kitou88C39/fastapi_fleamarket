@@ -30,12 +30,12 @@ async def find_by_name(db: DbDependency, ame: str = Query(min_length=2, max_leng
 async def create(db: DbDependency, item_create: ItemCreate):
     return item_cruds.create_item(db, item_create)
 
-# @router.put("/{id}", response_model=ItemResponse, status_code=status.HTTP_200_OK)
-# async def update(item_update: ItemUpdate, id: int = Path(gt=0)):
-#     update_item = item_cruds.update(id, item_update)
-#     if not update_item:
-#         raise HTTPException(status_code=404, detail="Item not updated")
-#     return update_item
+@router.put("/{id}", response_model=ItemResponse, status_code=status.HTTP_200_OK)
+async def update(db: DbDependency, item_update: ItemUpdate, id: int = Path(gt=0)):
+    update_item = item_cruds.update(db, id, item_update)
+    if not update_item:
+        raise HTTPException(status_code=404, detail="Item not updated")
+    return update_item
 
 # @router.delete("/{id}", response_model=ItemResponse, status_code=status.HTTP_200_OK)
 # async def delete(id: int = Path(gt=0)):
