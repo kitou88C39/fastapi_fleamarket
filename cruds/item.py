@@ -3,8 +3,8 @@ from schemas import ItemCreate, ItemStatus
 from models import Item
 
 
-# def find_all():
-#     return items
+def find_all(db: Session):
+    return db.query(Item).all()
 
 # def find_by_id(id: int):
 #     for item in items:

@@ -11,9 +11,9 @@ DbDependency = Annotated[Session, Depends(get_db)]
 
 router = APIRouter(prefix="/items", tags=["Items"])
 
-# @router.get("", response_model=list[ItemResponse])
-# async def find_all():
-#     return item_cruds.find_all()
+@router.get("", response_model=list[ItemResponse])
+async def find_all(db: DbDependency):
+    return item_cruds.find_all(db)
 
 # @router.get("/{id}", response_model=ItemResponse, status_code=status.HTTP_200_OK)
 # async def find_by_id(id: int=Path(gt=0)):
