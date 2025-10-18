@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
-from typing import Optional
-from schemas import ItemCreate, ItemStatus, ItemUpdate
+from schemas import ItemCreate, ItemStatus
+from models import Item
 
 
 # def find_all():
@@ -22,13 +22,10 @@ from schemas import ItemCreate, ItemStatus, ItemUpdate
 
 def create(db: Session, item_create: ItemCreate):
     new_item = Item(
-        len(items) + 1,
-        item_create.name,
-        item_create.price,
-        item_create.description,
-        ItemStatus.ON_SALE,
-    )    
-    items.append(new_item)
+        **item_create.model_dump()
+    )
+    db.add(new_item)
+    db.commit()
     return new_item
 
 # def update(id: int, item_update: ItemUpdate):
