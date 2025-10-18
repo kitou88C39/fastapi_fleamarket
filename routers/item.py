@@ -15,12 +15,12 @@ router = APIRouter(prefix="/items", tags=["Items"])
 async def find_all(db: DbDependency):
     return item_cruds.find_all(db)
 
-# @router.get("/{id}", response_model=ItemResponse, status_code=status.HTTP_200_OK)
-# async def find_by_id(id: int=Path(gt=0)):
-#     found_item = item_cruds.find_by_id(id)
-#     if not found_item:
-#         raise HTTPException(status_code=404, detail="Item not found")
-#     return found_item
+@router.get("/{id}", response_model=ItemResponse, status_code=status.HTTP_200_OK)
+async def find_by_id(db: DbDependency, id: int=Path(gt=0)):
+    found_item = item_cruds.find_by_id(db, id)
+    if not found_item:
+        raise HTTPException(status_code=404, detail="Item not found")
+    return found_item
 
 # @router.get("/", response_model=list[ItemResponse], status_code=status.HTTP_200_OK)
 # async def find_by_name(name: str = Query(min_length=2, max_length=20)):
