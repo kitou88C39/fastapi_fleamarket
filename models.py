@@ -1,4 +1,5 @@
-from datetime import datetime 
+from datetime import datetime
+from re import S 
 from sqlalchemy import Column, Integer, String, Enum, DateTime
 from database import Base
 from schemas import ItemStatus
@@ -21,5 +22,7 @@ class User(Base):
     id = Column(Integer, primary_key=True)
     username = Column(String, unique=False, unique=True)
     password = Column(String, nullable=False)
+    salt = Column(String, nullable=False)
+    email = Column(String, nullable=False)
     created_at = Column(DateTime, default=datetime.now())
     updated_at = Column(DateTime, default=datetime.now(), onupdate=datetime.now())
