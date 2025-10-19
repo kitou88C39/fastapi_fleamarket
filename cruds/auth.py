@@ -19,3 +19,5 @@ def create(db: Session, user_create: UserCreate):
     db.commit()
 
     return new_user
+
+    def authenticate(db: Session, username: str, password: str):
