@@ -30,3 +30,14 @@ class ItemResponse(BaseModel):
     updated_at: datetime
 
     model_config = ConfigDict(from_attributes=True)
+
+class ItemStatus(BaseModel):
+    username: str = Field(min_length=2, examples=["user1"])
+    password: str = Field(min_length=8, examples=["test1234"])
+
+
+class UserResponse(BaseModel):
+    id: str = Field(gt=0, examples=[1])
+    username: str = Field(min_length=2, examples=["user1"])
+    created_at: datetime
+    updated_at: datetime
