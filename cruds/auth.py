@@ -8,7 +8,9 @@ from models import User
 
 def create(db: Session, user_create: UserCreate):
     salt = base64.b64encode(os.urandom(32))
-    hash_password = hashlib.pbkdf2_hmac("sha256", user_create.password.encode(), salt, 1000).hex()
+    hash_password = hashlib.pbkdf2_hmac(
+        "sha256", user_create.password.encode(), salt, 1000
+        ).hex()
     new_user = User(
         username=user_create.username,
         password=hash_password,
@@ -21,3 +23,10 @@ def create(db: Session, user_create: UserCreate):
     return new_user
 
     def authenticate(db: Session, username: str, password: str):
+        user = db.query(User).filter(User.username == username).first()
+        if not user:
+            return None
+
+        hash_password = hashlib.pbkdf2_hmac(
+            "sha256", user_create.password.encode(), salt, 1000
+        ).hex()
