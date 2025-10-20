@@ -52,6 +52,4 @@ def create_access_token(username: str, user_id: int, expires_delta: timedelta):
     return jwt.encode(payload, SECRET_KEY, algorithm=ALGORITHM)
 
 
-
-
     

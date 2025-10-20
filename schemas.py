@@ -1,5 +1,6 @@
 from datetime import datetime
 from enum import Enum
+from nt import access
 from typing import Optional
 from pydantic import BaseModel, Field, ConfigDict
 
@@ -43,3 +44,8 @@ class UserResponse(BaseModel):
     updated_at: datetime
 
     model_config = ConfigDict(from_attributes=True)
+
+
+class Token(BaseModel):
+    access_token: str
+    token_type: str
