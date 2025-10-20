@@ -1,16 +1,18 @@
 from datetime import datetime, timedelta
 import hashlib
 import base64
-from math import exp
 import os
+from fastapi.security import OAuth2PasswordBearer, oauth2
 from jose import jwt
-from sqlalchemy import Session
+from sqlalchemy.orm import Session
 from schemas import UserCreate
 from models import User
 
 
 ALGORITHM = "HS256"
 SECRET_KEY = "df03e14f52bca218e6fe263876108d19df46e92046900c0666e4135f54dc8f9c"
+
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/login")
 
 
 def create(db: Session, user_create: UserCreate):
