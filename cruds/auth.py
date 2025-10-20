@@ -2,8 +2,10 @@ from datetime import datetime, timedelta
 import hashlib
 import base64
 import os
+from typing import Annotated
+from fastapi import Depends
 from fastapi.security import OAuth2PasswordBearer, oauth2
-from jose import jwt
+from jose import jwt, JWTError
 from sqlalchemy.orm import Session
 from schemas import UserCreate
 from models import User
@@ -53,5 +55,14 @@ def create_access_token(username: str, user_id: int, expires_delta: timedelta):
     }
     return jwt.encode(payload, SECRET_KEY, algorithm=ALGORITHM)
 
+def get_current_user(token: Annotated[str, Depends(oauth2_scheme)]):
+    try:
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        username = payload.get("sub")
+        user_id = payload.get("id")
+        if username is None or user_id is None:
+            return Nome
 
+    except JWTError:
+        raise JWTError("")
     
