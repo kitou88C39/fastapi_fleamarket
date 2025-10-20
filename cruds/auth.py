@@ -7,7 +7,7 @@ from fastapi import Depends
 from fastapi.security import OAuth2PasswordBearer, oauth2
 from jose import jwt, JWTError
 from sqlalchemy.orm import Session
-from schemas import UserCreate
+from schemas import UserCreate, DecodedToken
 from models import User
 
 
@@ -62,7 +62,7 @@ def get_current_user(token: Annotated[str, Depends(oauth2_scheme)]):
         user_id = payload.get("id")
         if username is None or user_id is None:
             return Nome
-
+        return DecodedToken(username=username, user_id=user_id)
     except JWTError:
         raise JWTError("")
     
