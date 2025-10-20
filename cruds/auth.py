@@ -1,5 +1,7 @@
+from datetime import datetime, timedelta
 import hashlib
 import base64
+from math import exp
 import os
 from sqlalchemy import Session
 from schemas import UserCreate
@@ -34,3 +36,14 @@ def authenticate(db: Session, username: str, password: str):
         return None
 
     return user
+
+def create_access_token(username: str, user_id: int, expires_delta: timedelta):
+    expires = datetime.now() + expires_delta
+    payload = {
+        "sub": username,
+        "id": user_id,
+        "exp": expires
+    }
+
+
+    
