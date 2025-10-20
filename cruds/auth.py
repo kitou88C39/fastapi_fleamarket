@@ -3,9 +3,14 @@ import hashlib
 import base64
 from math import exp
 import os
+from jose import jwt
 from sqlalchemy import Session
 from schemas import UserCreate
 from models import User
+
+
+ALGORITHM = "HS256"
+SECRET_KEY = "df03e14f52bca218e6fe263876108d19df46e92046900c0666e4135f54dc8f9c"
 
 
 def create(db: Session, user_create: UserCreate):
@@ -44,6 +49,9 @@ def create_access_token(username: str, user_id: int, expires_delta: timedelta):
         "id": user_id,
         "exp": expires
     }
+    return jwt.encode(payload, SECRET_KEY, algorithm=ALGORITHM)
+
+
 
 
     
