@@ -23,8 +23,8 @@ def create(db: Session, item_create: ItemCreate, user_id: int):
     return new_item
 
 
-def update(db: Session, id: int, item_update: ItemUpdate):
-    item = find_by_id(db, id)
+def update(db: Session, id: int, item_update: ItemUpdate, user_id: int):
+    item = find_by_id(db, id, user_id)
     if item is None:
         return None
 
@@ -42,13 +42,10 @@ def update(db: Session, id: int, item_update: ItemUpdate):
     return item
 
 
-def delete(db: Session, id: int):
-    item = find_by_id(db, id)
+def delete(db: Session, id: int, user_id: int):
+    item = find_by_id(db, id, user_id)
     if item is None:
         return None
     db.delete(item)
     db.commit()
     return item
-    
-
-    
