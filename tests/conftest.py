@@ -1,16 +1,19 @@
 import os
+from pydoc import cli
 import sys
 app_dir = os.path.join(os.path.dirname(__file__), '..')
 sys.path.append(app_dir)
 
-from database import SessionLocal
 import pytest
+from fastapi.testclient import TestClient
 from sqlalchemy import create_engine
 from sqlalchemy.orm import StaticPool
 from sqlalchemy.orm.session import Session, sessionmaker
 from models import Base, Item
 from schemas import DecodedToken
-
+from main import app
+from database import get_db
+from cruds.auth import get_current_user
 
 
 @pytest.fixture()
@@ -44,6 +47,14 @@ def user_fixture():
 def cloent_fixture(session_fixture: Session, user_fixture: DecodedToken):
     def override_get_db():
         return session_fixture
-        
+
     def override_get_current_user():
         return user_fixture
+
+    app.dependency_overrides[get_db] = override_get_db
+    app.dependency_overrides[get_current_user] = override_get_current_user
+
+    client = TestClient(app)
+    yield client
+
+    app.dependency_overrides.clear()
