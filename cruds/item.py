@@ -21,6 +21,7 @@ def create(db: Session, item_create: ItemCreate, user_id: int):
     db.commit()
 
     return new_item
+    
 
 def update(db: Session, id: int, item_update: ItemUpdate):
     item = find_by_id(db, id)

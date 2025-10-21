@@ -1,6 +1,5 @@
 from typing import Annotated
 from fastapi import APIRouter, Path, Query, HTTPException, Depends
-from models import User
 from sqlalchemy.orm import Session
 from starlette import status
 from cruds import item as item_cruds, auth as auth_cruds
@@ -34,8 +33,8 @@ async def find_by_name(db: DbDependency, ame: str = Query(min_length=2, max_leng
 
 
 @router.post("", response_model=ItemResponse, status_code=status.HTTP_201_CREATED)
-async def create(db: DbDependency, item_create: ItemCreate):
-    return item_cruds.create_item(db, item_create)
+async def create(db: DbDependency, user: UserDependency, item_create: ItemCreate):
+    return item_cruds.create_item(db, item_create, user.user_id)
 
 
 @router.put("/{id}", response_model=ItemResponse, status_code=status.HTTP_200_OK)
