@@ -20,8 +20,8 @@ async def find_all(db: DbDependency):
 
 
 @router.get("/{id}", response_model=ItemResponse, status_code=status.HTTP_200_OK)
-async def find_by_id(db: DbDependency, id: int=Path(gt=0)):
-    found_item = item_cruds.find_by_id(db, id)
+async def find_by_id(db: DbDependency, user: UserDependency, id: int=Path(gt=0)):
+    found_item = item_cruds.find_by_id(db, id, user.user_id)
     if not found_item:
         raise HTTPException(status_code=404, detail="Item not found")
     return found_item
