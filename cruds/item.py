@@ -7,8 +7,8 @@ def find_all(db: Session):
     return db.query(Item).all()
 
 
-def find_by_id(db: Session, id: int):
-    return db.query(Item).filter(Item.id == id).first()
+def find_by_id(db: Session, id: int, user_id: int):
+    return db.query(Item).filter(Item.id == id).filter(Item.user_id == user_id).first()
     
 
 def find_by_name(db: Session, name: str):
@@ -21,7 +21,7 @@ def create(db: Session, item_create: ItemCreate, user_id: int):
     db.commit()
 
     return new_item
-    
+
 
 def update(db: Session, id: int, item_update: ItemUpdate):
     item = find_by_id(db, id)
