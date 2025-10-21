@@ -9,6 +9,8 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import StaticPool
 from sqlalchemy.orm.session import Session, sessionmaker
 from models import Base, Item
+from schemas import DecodedToken
+
 
 
 @pytest.fixture()
@@ -32,3 +34,7 @@ def session_fixture():
         yield db
     finally:
         db.close()
+
+@pytest.fixture()
+def user_fixture():
+    return DecodedToken(username="user1", user_id=1)
