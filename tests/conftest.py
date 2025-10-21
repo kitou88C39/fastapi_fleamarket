@@ -38,3 +38,12 @@ def session_fixture():
 @pytest.fixture()
 def user_fixture():
     return DecodedToken(username="user1", user_id=1)
+
+
+@pytest.fixture()
+def cloent_fixture(session_fixture: Session, user_fixture: DecodedToken):
+    def override_get_db():
+        return session_fixture
+        
+    def override_get_current_user():
+        return user_fixture
