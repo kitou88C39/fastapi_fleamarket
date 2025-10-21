@@ -38,16 +38,16 @@ async def create(db: DbDependency, user: UserDependency, item_create: ItemCreate
 
 
 @router.put("/{id}", response_model=ItemResponse, status_code=status.HTTP_200_OK)
-async def update(db: DbDependency, item_update: ItemUpdate, id: int = Path(gt=0)):
-    update_item = item_cruds.update(db, id, item_update)
+async def update(db: DbDependency, user: UserDependency, item_update: ItemUpdate, id: int = Path(gt=0)):
+    update_item = item_cruds.update(db, id, item_update, user.user_id)
     if not update_item:
         raise HTTPException(status_code=404, detail="Item not updated")
     return update_item
 
 
 @router.delete("/{id}", response_model=ItemResponse, status_code=status.HTTP_200_OK)
-async def delete(db: DbDependency, id: int = Path(gt=0)):
-    delete_item = item_cruds.delete(db, id)
+async def delete(db: DbDependency, user: UserDependency, id: int = Path(gt=0)):
+    delete_item = item_cruds.delete(db, id, user.user_id)
     if not delete_item:
         raise HTTPException(status_code=404, detail="Item not deleted")
     return delete_item
