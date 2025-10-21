@@ -29,6 +29,7 @@ class ItemResponse(BaseModel):
     status: ItemStatus = Field(None, examples=[ItemStatus.SOLD_OUT])
     created_at: datetime
     updated_at: datetime
+    user_id: int
 
     model_config = ConfigDict(from_attributes=True)
 
