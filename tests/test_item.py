@@ -13,3 +13,9 @@ def test_find_by_id_SuccessCase(client_fixture: TestClient):
     assert response.status_code == 200
     items = response.json()
     assert items["id"] == 1
+
+
+def test_find_by_id_ErrorCase(client_fixture: TestClient):
+    response = client_fixture.get("/items/10")
+    assert response.status_code == 404
+    items = response.json()["detail"] == "Item not found"
