@@ -50,4 +50,7 @@ def test_update_SuccessCase(client_fixture: TestClient):
 
 
 
-    
+def test_update_ErrorCase(client_fixture: TestClient):
+    response = client_fixture.put("/items/10", json={"name": "スマホ", "price": 50000})
+    assert response.status_code == 404
+    item = response.json()["detail"] == "Item not found"
