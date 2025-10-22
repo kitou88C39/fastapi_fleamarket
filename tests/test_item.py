@@ -41,6 +41,13 @@ def test_create(client_fixture: TestClient):
     assert len(response.json()) == 3
     
 
+def test_update_SuccessCase(client_fixture: TestClient):
+    response = client_fixture.put("/items/1", json={"name": "スマホ", "price": 50000})
+    assert response.status_code == 200
+    item = response.json()
+    assert item["name"] == "スマホ"
+    assert item["price"] == 50000
+
 
 
     
