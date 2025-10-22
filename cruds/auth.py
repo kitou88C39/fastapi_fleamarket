@@ -9,10 +9,12 @@ from jose import jwt, JWTError
 from sqlalchemy.orm import Session
 from schemas import UserCreate, DecodedToken
 from models import User
+from config import get_settings
+
 
 
 ALGORITHM = "HS256"
-SECRET_KEY = "df03e14f52bca218e6fe263876108d19df46e92046900c0666e4135f54dc8f9c"
+SECRET_KEY = get_settings().SECRET_KEY
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/login")
 
