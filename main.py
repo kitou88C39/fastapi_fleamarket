@@ -1,9 +1,17 @@
 import time
 from fastapi import FastAPI, Request
 from routers import item, auth
+from fastapi.middleware import CORSMiddleware
+
 
 app = FastAPI()
-
+    
+app.add_middleware(
+CORSMiddleware,
+allow_origins=["http://localhost:3000"],
+allow_methods=["*"],
+allow_headers=["*"],
+)
 
 @app.middleware("http")
 async def add_process_time_header(request: Request, call_next):
